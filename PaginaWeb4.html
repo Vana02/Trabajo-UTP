@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Global Talent Latam</title>
+  <style>
+    /* Reset */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background: #f9f9f9;
+    }
+    a { text-decoration: none; color: inherit; }
+
+    /* Header y Nav (fondo blanco, enlaces negros) */
+    header {
+      background: #fff;
+      color: #000;
+      padding: 1rem 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      border-bottom: 1px solid #eee;
+    }
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: auto;
+    }
+    .logo img {
+      height: 50px;
+      width: auto;
+      display: block;
+    }
+    nav {
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+    }
+    nav a {
+      font-weight: 500;
+      color: #000; /* enlaces en negro */
+      transition: color 0.3s;
+    }
+    nav a:hover { color: #0073e6; }
+
+    /* Menú hamburguesa */
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      gap: 4px;
+    }
+    .menu-toggle span {
+      height: 3px;
+      width: 25px;
+      background: #000; /* negro para verse en blanco */
+      border-radius: 5px;
+    }
+
+    @media (max-width: 768px) {
+      nav {
+        display: none;
+        flex-direction: column;
+        background: #fff;
+        position: absolute;
+        top: 70px;
+        right: 0;
+        width: 220px;
+        padding: 1rem;
+        border: 1px solid #ddd;
+        box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+      }
+      nav a { color: #000; padding: 0.5rem 0; }
+      nav.active { display: flex; }
+      .menu-toggle { display: flex; }
+    }
+
+    /* Hero Section (video de fondo) */
+    .hero {
+      position: relative;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      color: white;
+      overflow: hidden;
+    }
+    .hero video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
+    }
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.4);
+      z-index: 0;
+    }
+    .hero-text {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 0 1rem;
+    }
+    .hero-text h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+    }
+    .hero-text p {
+      font-size: 1.2rem;
+      text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
+    }
+
+    /* Secciones generales */
+    .section {
+      max-width: 1200px;
+      margin: 3rem auto;
+      padding: 0 1rem;
+    }
+    .section h2 {
+      text-align: center;
+      margin-bottom: 2rem;
+      color: #0073e6;
+    }
+
+    /* Servicios */
+    .services {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+    }
+    .card {
+      background: white;
+      padding: 2rem;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+      text-align: center;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 28px rgba(0,0,0,0.12);
+    }
+    .card h3 { margin: 1rem 0; color: #0073e6; }
+
+    /* Portafolio */
+    .portfolio {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1rem;
+    }
+    .portfolio img {
+      width: 100%;
+      border-radius: 10px;
+      transition: transform 0.3s;
+      display: block;
+    }
+    .portfolio img:hover { transform: scale(1.05); }
+
+    /* Formulario de contacto */
+    .contact form {
+      display: grid;
+      gap: 1rem;
+      max-width: 600px;
+      margin: auto;
+    }
+    .contact input, .contact textarea, .contact button {
+      padding: 0.8rem;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+      width: 100%;
+    }
+    .contact button {
+      background: #0073e6;
+      color: white;
+      border: none;
+      cursor: pointer;
+      padding: 0.9rem;
+      font-weight: 600;
+      transition: background 0.3s;
+      border-radius: 8px;
+    }
+    .contact button:hover { background: #005bb5; }
+
+    /* Footer */
+    footer {
+      background: #222;
+      color: white;
+      padding: 2rem 1rem;
+      margin-top: 2rem;
+    }
+    .footer-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+      max-width: 1200px;
+      margin: auto;
+    }
+    .footer-container h4 { margin-bottom: 1rem; }
+    .footer-container ul { list-style: none; padding: 0; }
+    .footer-container li { margin-bottom: 0.5rem; }
+    .copy {
+      text-align: center;
+      margin-top: 1rem;
+      font-size: 0.9rem;
+      border-top: 1px solid #444;
+      padding-top: 1rem;
+    }
+
+    /* Ajustes responsivos adicionales */
+    @media (max-width: 480px) {
+      .hero-text h1 { font-size: 2rem; }
+      .hero-text p { font-size: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="nav-container">
+      <div class="logo">
+        <a href="#inicio">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQuZq6sqam5ziqkbk_PAGKAH2hYgCDhnyXbFA&s" alt="Global Talent Latam Logo">
+        </a>
+      </div>
+
+      <nav id="menu">
+        <a href="#inicio">Inicio</a>
+        <a href="#servicios">Servicios</a>
+        <a href="#proyectos">Proyectos</a>
+        <a href="#contacto">Contacto</a>
+      </nav>
+
+      <div class="menu-toggle" id="toggle" aria-label="Abrir menú">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO con video -->
+  <section class="hero" id="inicio">
+    <video autoplay muted loop playsinline>
+      <source src="https://v1.pinimg.com/videos/iht/hls/71/40/d2/7140d258b9986e0626116285cdfb5a20_480w.cmfv" type="video/mp4">
+      Tu navegador no soporta video en HTML5.
+    </video>
+
+    <div class="hero-text">
+      <h1>Expertos en Soluciones SAP</h1>
+      <p>La mejor opción para tu negocio 🚀</p>
+    </div>
+  </section>
+
+  <!-- SERVICIOS -->
+  <section class="section" id="servicios">
+    <h2>Nosotros</h2>
+    <div class="services">
+      <div class="card">
+        <h3>💻 Soporte SAP</h3>
+        <p>Garantizamos el correcto funcionamiento de la plataforma.</p>
+      </div>
+      <div class="card">
+        <h3>🗄️ Servidores SAP</h3>
+        <p>Servicio de Alquiler de Servidores para sistemas SAP.</p>
+      </div>
+      <div class="card">
+        <h3>📖 Cursos SAP</h3>
+        <p>Aprende y certifícate con nuestros cursos.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROYECTOS / PORTAFOLIO -->
+  <section class="section" id="proyectos">
+    <h2>Nuestros Servicios</h2>
+    <div class="portfolio">
+      <img src="https://cursosdeit.com/wp-content/uploads/2024/05/Servidor-SAP.jpg" alt="Proyecto 1">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSM5nwR-vKmoj9jqaw6Sq_27WQy0hZKF8nwdA&s" alt="Proyecto 2">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSS6b9jl6x8Y6ICcZJBPHYOm2clZtY7sz4Xrw&s" alt="Proyecto 3">
+	<img src="https://globaltalent.pe/wp-content/uploads/2025/04/LOGOS_SAP_WEB3.jpg" alt="Proyecto 4">
+	<img src="https://globaltalent.pe/wp-content/uploads/2025/05/Integral-SAP-EWM.webp" alt="Proyecto 3">
+    </div>
+  </section>
+
+  <!-- CONTACTO -->
+  <section class="section contact" id="contacto">
+    <h2>Contacto</h2>
+    <form>
+      <input type="text" placeholder="Nombre" required>
+      <input type="email" placeholder="Correo electrónico" required>
+      <textarea rows="5" placeholder="Escribe tu mensaje..." required></textarea>
+      <button type="submit">Enviar Mensaje</button>
+    </form>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-container">
+      <div>
+        <h4>Sobre Nosotros</h4>
+        <p>Brindamos soluciones SAP de alta eficiencia.</p>
+      </div>
+
+      <div>
+        <h4>Enlaces</h4>
+        <ul>
+          <li><a href="#inicio">Inicio</a></li>
+          <li><a href="#servicios">Servicios</a></li>
+          <li><a href="#proyectos">Nosotros</a></li>
+          <li><a href="#contacto">Contacto</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4>Contacto</h4>
+        <ul>
+          <li>📧 atenciongtlatam@gmail.com</li>
+          <li>📞 +51 918 273 645</li>
+          <li>📍 Lima, Perú</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="copy">© 2025 Global Talent Latam - Todos los derechos reservados</div>
+  </footer>
+
+  <script>
+    // Toggle menú responsive
+    const toggle = document.getElementById('toggle');
+    const menu = document.getElementById('menu');
+    toggle.addEventListener('click', () => {
+      menu.classList.toggle('active');
+    });
+  </script>
+</body>
+</html>
